@@ -6,7 +6,7 @@ authors:
   - family-names: Okobi
     given-names: "Nwanneadiazi Emmanuel"
 year: 2026
-version: "1.1.0"
+version: "1.0.0"
 license: MIT
 repository-code: "https://github.com/nwanneadiaziemmanuel-glitch/lassa-safe-forecasting"
 abstract: >
