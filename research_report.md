@@ -1,0 +1,80 @@
+# Research Report
+
+## Safe, Uncertainty-Aware Forecasting for Sparse Lassa Outbreaks
+
+### Abstract
+
+This project investigates trustworthy machine-learning forecasting for weekly Lassa fever surveillance signals in Nigeria. The study uses an aggregate weekly series covering 30 December 2019 to 10 November 2025 and focuses on whether a lightweight forecasting model remains useful under strong seasonality, high variance, sparse observations and degraded recent signals.
+
+The corrected V1.1 core analysis uses leakage-controlled expanding year-based temporal holdouts and evaluates 1–4 week-ahead Gradient Boosting forecasts with Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE). The historical V1 archive additionally contains analyses of uncertainty, peak-event failure, synthetic target augmentation, synthetic-data fidelity and robustness to degraded surveillance.
+
+The project is intentionally framed as a trustworthy-AI study rather than a claim of operational outbreak forecasting readiness.
+
+## Research question
+
+Can a lightweight machine-learning model forecast short-horizon weekly Lassa fever surveillance signals while making uncertainty, peak-event performance, robustness and reproducibility explicit?
+
+## Dataset
+
+The dataset contains 307 weekly aggregate observations from 30 December 2019 through 10 November 2025. Variables include epidemiological week/year, suspected cases, confirmed cases, probable cases, deaths and extraction metadata.
+
+The structural audit found no missing values, duplicate week starts, seven-day date gaps, negative counts or impossible relationships among the supplied surveillance variables.
+
+These structural checks do not prove that surveillance reporting itself was complete.
+
+## Core V1.1 modelling approach
+
+Features consist of historical target lags, shifted rolling means and epidemiological-week sine/cosine terms. The primary model is a shallow Huber-loss Gradient Boosting Regressor with 100 estimators, maximum depth 2, learning rate 0.05 and random seed 42.
+
+The evaluation is an expanding year-based temporal holdout. For each evaluation year, training targets are restricted so that their future outcome remains before the start of that evaluation year. This prevents the target leakage identified in the earlier implementation.
+
+The evaluation uses 1-, 2-, 3- and 4-week horizons.
+
+## V1.1 core results
+
+| Horizon | Year | N | MAE | RMSE |
+|---:|---:|---:|---:|---:|
+| 1 week | 2022 | 51 | 12.77 | 23.24 |
+| 1 week | 2023 | 51 | 9.70 | 19.31 |
+| 1 week | 2024 | 51 | 6.83 | 12.62 |
+| 1 week | 2025 | 45 | 6.38 | 9.15 |
+| 2 weeks | 2022 | 50 | 11.34 | 20.88 |
+| 2 weeks | 2023 | 50 | 9.73 | 21.37 |
+| 2 weeks | 2024 | 50 | 7.08 | 12.31 |
+| 2 weeks | 2025 | 44 | 5.38 | 7.99 |
+| 3 weeks | 2022 | 49 | 10.82 | 20.46 |
+| 3 weeks | 2023 | 49 | 8.57 | 18.01 |
+| 3 weeks | 2024 | 49 | 7.96 | 14.42 |
+| 3 weeks | 2025 | 43 | 5.34 | 8.06 |
+| 4 weeks | 2022 | 48 | 10.78 | 19.73 |
+| 4 weeks | 2023 | 48 | 7.75 | 16.06 |
+| 4 weeks | 2024 | 48 | 8.38 | 15.48 |
+| 4 weeks | 2025 | 42 | 5.74 | 9.14 |
+
+## Historical V1 findings
+
+The original V1 analytical archive showed several important trustworthy-AI failure modes:
+
+- peak/high-intensity weeks had materially higher forecasting error than non-peak weeks;
+- nominal 95% prediction intervals under-covered in several year/horizon combinations;
+- generic synthetic target augmentation was not consistently beneficial;
+- the original synthetic-fidelity analysis raised concerns about preservation of high values; and
+- removing recent surveillance information could materially increase forecasting error.
+
+These results are preserved in `results/archive_v1/` and are explicitly identified as historical analytical outputs rather than V1.1 regenerated results.
+
+## Interpretation
+
+The strongest portfolio-level message is not that Gradient Boosting solves Lassa forecasting. It is that trustworthy evaluation must examine multiple dimensions of failure at the same time.
+
+A model can have acceptable average MAE while performing poorly on high-intensity weeks. A nominal 95% interval can have much lower empirical coverage. Synthetic augmentation can improve one metric while damaging another. A complete CSV can still represent an imperfect surveillance process. Finally, a result that cannot be reproduced from the current code should be versioned and disclosed rather than silently rewritten.
+
+## Limitations
+
+The dataset is a compiled secondary surveillance series. Reporting delay, backfill, revisions and changes in surveillance practice are not fully modelled. The 2025 series is partial, and epidemiological week 53 has only one observation. No external-country validation or clinical utility evaluation is included.
+
+The V1.1 core analysis is an expanding year-based temporal holdout, not a full rolling-origin study. The historical synthetic, uncertainty and robustness analyses are preserved as an archive because their original pipelines are not all regenerated by the corrected core runner.
+
+## Conclusion
+
+Project 1 demonstrates a research approach to trustworthy outbreak forecasting in which predictive accuracy is only one part of the evaluation. The final repository distinguishes the corrected V1.1 core implementation from the historical V1 analytical record, making the version transition explicit and auditable.

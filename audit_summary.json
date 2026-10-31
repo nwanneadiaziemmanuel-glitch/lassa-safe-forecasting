@@ -1,0 +1,20 @@
+{
+  "rows": 307,
+  "columns": 11,
+  "date_min": "2019-12-30",
+  "date_max": "2025-11-10",
+  "missing_total": 0,
+  "duplicate_rows": 0,
+  "duplicate_week_starts": 0,
+  "negative_counts": 0,
+  "confirmed_gt_suspected": 0,
+  "probable_gt_suspected": 0,
+  "deaths_gt_confirmed_plus_probable": 0,
+  "date_gaps_not_7d": 0,
+  "week_end_mismatch": 0,
+  "extraction_counts": {
+    "automated": 251,
+    "manual": 46,
+    "mixed": 10
+  }
+}

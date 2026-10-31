@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "Safe, Uncertainty-Aware Forecasting for Sparse Lassa Outbreaks"
+message: "If you use this repository, please cite it."
+type: software
+authors:
+  - family-names: Okobi
+    given-names: "Nwanneadiazi Emmanuel"
+year: 2026
+version: "1.1.0"
+license: MIT
+repository-code: "https://github.com/nwanneadiaziemmanuel-glitch/lassa-safe-forecasting"
+abstract: >
+  Trustworthy-AI evaluation of sparse Lassa fever forecasting, uncertainty,
+  synthetic target augmentation, robustness, and reproducibility.
+keywords:
+  - trustworthy AI
+  - biomedical AI
+  - Lassa fever
+  - outbreak forecasting
+  - uncertainty quantification
+  - synthetic data augmentation
+  - robustness
+  - reproducibility
